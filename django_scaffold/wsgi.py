@@ -8,9 +8,12 @@ https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/
 """
 
 import os
+from core.wsgi import wsgi_handler_bind_ext_request_class
 
+wsgi_handler_bind_ext_request_class()
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_scaffold.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE',
+                      'django_scaffold.settings.' + os.environ.get('ENV', 'development').lower())
 
 application = get_wsgi_application()

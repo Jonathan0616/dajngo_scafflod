@@ -6,8 +6,8 @@ from datetime import datetime
 from django.http import JsonResponse
 from django.core.serializers.json import DjangoJSONEncoder
 
-from core.error_code import BossExceptions
-from libs.datetime import to_unix_timestamp
+from .error_code import ECEnum
+from libs.datetime import to_unix_timestamp, from_unix_timestamp
 
 
 class ExtJsonEncode(DjangoJSONEncoder):
@@ -16,6 +16,7 @@ class ExtJsonEncode(DjangoJSONEncoder):
     def default(self, o: Any) -> Any:
         if isinstance(o, datetime):
             return to_unix_timestamp(o)
+            # return str(o)
         elif isinstance(o, Decimal):
             return str(o)
         return super().default(o)
@@ -35,7 +36,7 @@ def response_ok(data: Any = None) -> JsonResponse:
 
 
 def response_fail(
-        enum: Optional[BossExceptions] = None,
+        enum: Optional[ECEnum] = None,
         desc: Any = '') -> JsonResponse:
     """
     失败返回
@@ -44,7 +45,7 @@ def response_fail(
     :return:
     """
     if enum is None:
-        enum = BossExceptions.ServerError
+        enum = ECEnum.ServerError
     # 错误码
     code: str = str(enum.code)
     # error码

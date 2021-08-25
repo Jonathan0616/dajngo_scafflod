@@ -126,18 +126,7 @@ STATIC_URL = '/static/'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
-    'loggers': {
-        '': {
-            'level': 'INFO',
-            'handlers': ['console', 'info_file', 'error_file'],
-            'propagate': False
-        },
-        'django': {
-            'level': 'INFO',
-            'handlers': ['console', 'info_file', 'error_file'],
-            'propagate': False
-        }
-    },
+
     'formatters': {
         'default': {
             'format': '[%(asctime)s.%(msecs).3d] - [%(levelname)s] - [%(name)s:%(lineno)d] - [%(message)s]',
@@ -147,7 +136,7 @@ LOGGING = {
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
-            'level': 'INFO',
+            'level': 'DEBUG',
             'formatter': 'default',
         },
         'info_file': {
@@ -168,7 +157,19 @@ LOGGING = {
             'level': 'ERROR',
             'formatter': 'default',
         },
-    }
+    },
+    'loggers': {
+        '': {
+            'level': 'INFO',
+            'handlers': ['console', 'info_file', 'error_file'],
+            'propagate': False
+        },
+        'django': {
+            'level': 'DEBUG',
+            'handlers': ['console', 'info_file', 'error_file'],
+            'propagate': False
+        }
+    },
 }
 
 # 跨域

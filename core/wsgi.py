@@ -10,6 +10,7 @@ class ExtWSGIRequest(WSGIRequest):
         super(ExtWSGIRequest, self).__init__(*args, **kwargs)
         self.ext = SimpleNamespace()  # 用于临时绑定自定义字段
 
-    def wsgi_handler_bind_ext_request_class(self):
-        """绑定扩展request类"""
-        WSGIHandler.request_class = ExtWSGIRequest
+
+def wsgi_handler_bind_ext_request_class():
+    """绑定扩展request类"""
+    WSGIHandler.request_class = ExtWSGIRequest

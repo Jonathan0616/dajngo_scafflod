@@ -13,5 +13,6 @@ class ECEnum(BaseECEnum):
     # 用户
     PermissionDenied = ECData('10001', '权限不够')
     UserPasswordErr = ECData('10002', '用户账号或密码错误')
+    UserExist = ECData('10003', '已存在的用户')
     # 账单
 
