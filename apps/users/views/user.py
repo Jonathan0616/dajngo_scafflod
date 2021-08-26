@@ -50,11 +50,12 @@ class UserView(APIView):
     """单个用户"""
 
     def get(self, request: Request, user_id: str, *args, **kwargs):
-        obj = User.objects.get(user_id=user_id)
+        obj = User.objects.filter(is_deleted=0,user_id=user_id).first()
         data = ExtDict()
-        data.userId = obj.user_id
-        data.name = obj.name
-        data.userType = obj.user_type
+        if obj:
+            data.userId = obj.user_id
+            data.name = obj.name
+            data.userType = obj.user_type
         return response_ok(data)
 
     @atomic()
