@@ -207,3 +207,36 @@ REST_FRAMEWORK = {
     # 更改默认 request.auth = None
     'UNAUTHENTICATED_TOKEN': None,
 }
+
+
+# CACHE
+# Redis
+DEFAULT_REDIS_PORT = 6379
+
+# Cache
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://r-2zed2mpeqshup0fiaqpd.redis.rds.aliyuncs.com/16",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            # "PASSWORD": get_env("DC_REDIS_PASSWORD", ""),
+            "PASSWORD": "",
+            # 最大连接数量
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100},
+        },
+        "KEY_FUNCTION": "djangocli.utils.redis.django_cache_key_maker",
+    }
+}
+
+
+
+# CELERY
+CELERY_BROKER_URL = "xxxxxxxxxxxxx"
+
+#: Only add pickle to this list if your broker is secured
+#: from unwanted access (see userguide/security.html)
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_TASK_SERIALIZER = "json"
+
